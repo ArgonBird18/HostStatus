@@ -1,5 +1,7 @@
 package org.rockislandschools;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,13 +35,15 @@ public class Main {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Nothing has changed");
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+            System.out.println("Nothing has changed, Time is " + timeStamp );
             
         }
             else {
             statusFrame.setVisible(false);
             statusFrame.dispose();
-            System.out.println("Building a new frame");
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+            System.out.println("Building a new frame, Time is " + timeStamp);
             currentState = newState;
             statusFrame.buildFrame(address, currentState);
             }
