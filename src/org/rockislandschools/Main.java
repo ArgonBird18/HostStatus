@@ -1,13 +1,5 @@
 package org.rockislandschools;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class Main {
 
@@ -19,34 +11,16 @@ public class Main {
             System.exit(0);
         }
         
-        String ipAdd = args[0];
+        String address = args[0];
         
-        HostStatus state = new HostStatus();
-        state.IsReachable(ipAdd);
+        HostStatus status = new HostStatus();
         
-        JFrame frame = new JFrame("Host Status");
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        String currentState = status.IsReachableReturnString(address);
         
-        JPanel panel = new JPanel();
+        DisplayStatus statusFrame = new DisplayStatus();
         
-        JLabel ipLabel = new JLabel(ipAdd);
-        ipLabel.setOpaque(true);
-        ipLabel.setBackground(Color.white);
-        ipLabel.setPreferredSize(new Dimension(20, 25));
+        statusFrame.buildFrame(address, currentState);
         
-        JLabel stateLabel = new JLabel(state.IsReachableReturnString(ipAdd));
-        stateLabel.setOpaque(true);
-        stateLabel.setBackground(Color.yellow);
-        stateLabel.setPreferredSize(new Dimension(20, 25));
-        
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        panel.setPreferredSize(new Dimension(400,400));
-        frame.getContentPane().add(panel);
-        frame.getContentPane().add(ipLabel, BorderLayout.CENTER);
-        frame.getContentPane().add(stateLabel, BorderLayout.AFTER_LAST_LINE);
-        frame.pack();
-        frame.setVisible(true);
-  
+    
     }
 }
