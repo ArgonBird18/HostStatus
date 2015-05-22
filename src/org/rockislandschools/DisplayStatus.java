@@ -26,7 +26,12 @@ public class DisplayStatus extends JFrame {
         
     JLabel stateLabel = new JLabel(status);
     stateLabel.setOpaque(true);
-    stateLabel.setBackground(Color.yellow);        
+    if (status.equals("Up")){
+        stateLabel.setBackground(Color.GREEN);
+    }
+    if (status.equals("Down")){
+        stateLabel.setBackground(Color.red);
+    }   
     stateLabel.setPreferredSize(new Dimension(20, 25));
         
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -37,6 +37,7 @@ public class Main {
             
         }
             else {
+            statusFrame.setVisible(false);
             statusFrame.dispose();
             System.out.println("Building a new frame");
             currentState = newState;
