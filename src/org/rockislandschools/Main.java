@@ -8,6 +8,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class Main {
+	
+	public static JFrame statusFrame;
+	public static String currentState;
+	public static String address;
 
 	public static void main(String[] args) {
 
@@ -16,21 +20,19 @@ public class Main {
 			System.out.println("Please specify IP Address.");
 			System.exit(0);
 		}
+		
+		DisplayStatus.setupSystemTray();
 
-		String address = args[0];
+		address = args[0];
 
-		HostStatus status = new HostStatus();
-
-		String currentState = status.IsReachableReturnString(address);
-
-		JFrame statusFrame = new JFrame();
+		currentState = "Loading...";
 
 		statusFrame = DisplayStatus.buildFrame(address, currentState);
 
 		//String newState = status.IsReachableReturnString(address);
 
 		while (true){
-			String newState = status.IsReachableReturnString(address);
+			String newState = HostStatus.IsReachableReturnString(address);
 			if (newState.equals(currentState)){
 				try {
 					Thread.sleep(2000);
@@ -42,10 +44,10 @@ public class Main {
 
 			} else {
 				//statusFrame.setVisible(false);
-				statusFrame.dispose();
 				String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 				System.out.println("Building a new frame, Time is " + timeStamp);
 				currentState = newState;
+				statusFrame.dispose();
 				statusFrame = DisplayStatus.buildFrame(address, currentState);
 			}
 		}
